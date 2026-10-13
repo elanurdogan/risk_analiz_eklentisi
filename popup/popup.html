@@ -5,8 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Risk Analizi</title>
     <style>
-        body { width: 350px; padding: 15px; font-family: Arial, sans-serif; background-color: #f9f9f9; }
-        h3 { text-align: center; color: #333; margin-top: 0; }
+        body { width: 350px; padding: 15px; font-family: Arial, sans-serif; background-color: #f9f9f9; margin: 0; }
+        h3 { text-align: center; color: #333; margin-top: 0; margin-bottom: 15px; }
+        
+        /* Yeni Eklenen Uyarı Kutusu Tasarımı */
+        .uyari-kutusu {
+            background-color: #fff3cd; /* Dikkat çekici açık sarı */
+            color: #856404; /* Koyu sarı/kahverengi yazı */
+            border: 1px solid #ffeeba;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            margin-bottom: 15px;
+            text-align: center;
+            line-height: 1.4;
+        }
+
         button { width: 100%; padding: 12px; background-color: #007BFF; color: white; border: none; border-radius: 5px; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.3s; }
         button:hover { background-color: #0056b3; }
         #sonuc { margin-top: 15px; font-size: 14px; color: #444; }
@@ -15,13 +29,18 @@
 <body>
     <h3>📜 Sözleşme Analizi</h3>
     
+    <!-- YENİ EKLENEN: Hukuki Sorumluluk Reddi -->
+    <div class="uyari-kutusu">
+        <strong>⚠️ ÖNEMLİ UYARI:</strong><br>
+        Bu uygulama <b>hukuki tavsiye vermez</b>. Yapay zeka hatalı sonuçlar üretebilir. Sözleşmeleri her zaman kendi iradenizle okuyup onaylayın.
+    </div>
+    
     <button id="analizBtn">Riski Analiz Et</button>
     
     <div id="sonuc">
         <!-- İleride risk raporumuz ve skor buraya yazdırılacak -->
     </div>
 
-    <!-- JavaScript dosyamızı bağlıyoruz -->
     <script src="popup.js"></script>
 </body>
 </html>
