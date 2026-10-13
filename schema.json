@@ -1,0 +1,40 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "description": "Kullanım koşulları risk analizi çıktı formatı",
+  "properties": {
+    "risk_skoru": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 10,
+      "description": "Metnin genel tehlike seviyesi (1: Çok güvenli, 10: Aşırı riskli)"
+    },
+    "riskli_maddeler": {
+      "type": "array",
+      "description": "Tespit edilen riskli maddelerin listesi",
+      "items": {
+        "type": "object",
+        "properties": {
+          "orijinal_metin": {
+            "type": "string",
+            "description": "ZORUNLU KURAL: Kaynak metinden noktası virgülüne dokunulmadan alınan BİREBİR alıntı. Alıntısı olmayan hiçbir risk kabul edilemez."
+          },
+          "sade_aciklama": {
+            "type": "string",
+            "description": "Sıradan bir kullanıcının anlayabileceği, avukat jargonu içermeyen sade Türkçe açıklama."
+          }
+        },
+        "required": [
+          "orijinal_metin",
+          "sade_aciklama"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "risk_skoru",
+    "riskli_maddeler"
+  ],
+  "additionalProperties": false
+}
