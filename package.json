@@ -1,0 +1,24 @@
+{
+  "name": "risk_analiz_eklentisi",
+  "version": "1.0.0",
+  "description": "Bu proje, web sitelerindeki kullanım koşullarını LLM kullanarak analiz eden bir Chrome uzantısıdır.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/elanurdogan/risk_analiz_eklentisi.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/elanurdogan/risk_analiz_eklentisi/issues"
+  },
+  "homepage": "https://github.com/elanurdogan/risk_analiz_eklentisi#readme",
+  "dependencies": {
+    "root": "github:alibaba/page-agent"
+  }
+}
