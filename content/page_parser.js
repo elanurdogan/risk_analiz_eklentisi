@@ -1,31 +1,27 @@
 // content/page_parser.js
 
 /**
- * Bu dosya, eklentinin "Saha Ajanı"dır.
- * Sayfanın DOM'unu page-agent ile okuyup, temizlenmiş metni Merkez Üsse (Service Worker) gönderecek mantığı içerir.
+ * Bu dosya eklentimizin "Saha Ajanı"dır.
+ * Sayfada sürekli uyanık bekler ve Merkez Üs'ten (Service Worker) emir geldiğinde
+ * DOM'u okuyup metni geri gönderir.
  */
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+    if (request.action === "GET_PAGE_TEXT") {
+        try {
+            const metin = document.body.innerText || "";
+            const temizlenmisMetin = metin.replace(/\n\s*\n/g, '\n').trim();
 
-import { PageAgent } from '@alibaba/page-agent';
-
-export async function sayfayiAnalizEt() {
-    try {
-        // 1. Page-Agent'ı başlat
-        const agent = new PageAgent();
-        
-        // 2. O anki sayfanın DOM yapısını okumasını ve temizlemesini iste
-        const temizlenmisMetin = await agent.getDOMText(document);
-
-        // 3. Eğer sayfa boşsa veya okunamadıysa hata fırlat (Hata Yönetimi)
-        if (!temizlenmisMetin || temizlenmisMetin.length < 50) {
-            throw new Error("Sayfada yeterli sözleşme metni bulunamadı.");
+            if (!temizlenmisMetin || temizlenmisMetin.length < 50) {
+                console.warn("Sayfada yeterli sözleşme metni bulunamadı.");
+                sendResponse({ text: null });
+            } else {
+                sendResponse({ text: temizlenmisMetin });
+            }
+        } catch (error) {
+            console.error("DOM Okuma Hatası:", error);
+            sendResponse({ text: null });
         }
-
-        // 4. Temiz metni geri döndür (Bu metin daha sonra LLM'e gidecek)
-        return temizlenmisMetin;
-
-    } catch (error) {
-        // Beklenmeyen bir hata olursa sessizce çökme, raporla!
-        console.error("DOM Okuma Hatası:", error.message);
-        return null;
     }
-}
+    // Asenkron yanıt verebilmek için true döndürüyoruz (Kritik)
+    return true; 
+});
