@@ -1,7 +1,7 @@
 # 📊 LLM Performans Değerlendirmesi (Mini Eval)
 
 **Tarih:** 15 Ekim 2026
-**Model:** GPT-4o-Mini
+**Model:** GPT-4o-Mini *(eklentinin ilk sürümü; güncel sürüm gemini-3.8-flash kullanır)*
 **Amaç:** Sistem promptunun gerçek dünya Kullanım Koşulları (ToS) metinlerindeki risk tespit yeteneğini ve halüsinasyon direncini ölçmek.
 
 ## 🧪 Test Matrisi

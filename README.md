@@ -2,10 +2,12 @@
 
 Bu Chrome eklentisi, web sitelerinin Kullanım Koşulları (ToS) ve Gizlilik Politikası metinlerini yapay zeka ile analiz ederek, kullanıcı aleyhine olan maddeleri (veri satışı, hukuki hak feragatleri vb.) tespit eder ve sade bir Türkçe ile raporlar.
 
+> ⚠️ **Hukuki Uyarı:** Bu uygulama **hukuki tavsiye vermez**. Yapay zeka hatalı sonuçlar üretebilir. Bu uyarı eklentinin arayüzünde (popup) de her zaman görünür durumdadır.
+
 ## 🏗️ Sistem Mimarisi ve Kararlar
 
 * **BYOK (Bring Your Own Key) Mimarisi:** Kullanıcı gizliliği ve güvenlik prensipleri gereği, API anahtarları koda gömülmemiş, `chrome.storage.local` kullanılarak kullanıcının kendi anahtarını girmesine (Options page) olanak tanınmıştır.
-* **LLM Motoru:** Sistem, analiz işlemleri için Google **gemini-3.8-flash** modelini kullanmaktadır. İstekler deterministik bir JSON şemasına bağlanarak %100 oranında yapılandırılmış veri (Risk Skoru, Kategori, Orijinal Metin, Sade Açıklama) döndürmesi sağlanmıştır.
+* **LLM Motoru:** Sistem, analiz işlemleri için Google **gemini-3.8-flash** modelini kullanmaktadır. İstekler deterministik bir JSON şemasına bağlanarak %100 oranında yapılandırılmış veri (Risk Skoru, Kategori, Orijinal Metin, Sade Açıklama) döndürmesi sağlanmıştır. *(Not: Eklentinin ilk sürümü OpenAI GPT-4o-Mini kullanıyordu; `tests/eval_raporu.md` içindeki eval o sürümle yapılmıştır.)*
 * **DOM Okuma (Saha Ajanı):** Ödev isterlerindeki `@alibaba/page-agent` paketinin resmi NPM deposunda derlenmiş bir kütüphane yerine karmaşık bir TypeScript monoreposu olarak bulunması nedeniyle Webpack entegrasyonu bloklanmıştır. Mimariyi hantallaştırmamak adına, `PageAgent` sınıf arayüzü (interface) taklit edilerek DOM okuma işlemi *Native JavaScript* ve *Message Passing* (chrome.runtime.sendMessage) yöntemiyle eklentiye başarıyla entegre edilmiştir.
 
 ## 🚀 Kurulum ve Çalıştırma (Geliştirici Modu)
