@@ -2,6 +2,10 @@
 
 **Tarih:** 15 Ekim 2026
 **Model:** GPT-4o-Mini
+
+> **Not (model):** Bu değerlendirme, eklentinin OpenAI (GPT-4o-Mini) altyapısını kullanan ilk sürümüyle yapılmıştır. Aynı gün (15 Ekim 2026) LLM motoru ücretsiz Gemini API'ye taşındı (commit `4293cd5`); güncel sürüm `gemini-3.8-flash` kullanır. Aşağıdaki sonuçlar Gemini ile henüz yeniden üretilmemiştir.
+>
+> **Not (doğrulama):** Bu tablodaki "alıntı" kontrolleri manuel yapılmıştır. Güncel sürümde her alıntı `background/dogrulama.js` tarafından sayfa metnine karşı otomatik olarak doğrulanır; sayfada bulunamayan alıntılar "Doğrulanamayan iddialar" bölümünde ayrı gösterilir.
 **Amaç:** Sistem promptunun gerçek dünya Kullanım Koşulları (ToS) metinlerindeki risk tespit yeteneğini ve halüsinasyon direncini ölçmek.
 
 ## 🧪 Test Matrisi
