@@ -157,6 +157,20 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     }
 });
 
+// --- GEÇİCİ SUNUCU HATALARINDA YENİDEN DENEME ---
+// 429 (kota) ve 5xx (ör. 503 "high demand") geçici hatalardır; artan beklemeyle 3 kez denenir.
+const GECICI_HATALAR = [429, 500, 502, 503, 504];
+async function fetchTekrarli(url, secenekler, denemeSayisi = 3) {
+    for (let deneme = 1; ; deneme++) {
+        const yanit = await fetch(url, secenekler);
+        if (!GECICI_HATALAR.includes(yanit.status)) return yanit;
+        if (deneme === denemeSayisi) {
+            throw new Error(`Gemini sunucusu şu an yoğun (HTTP ${yanit.status}). ${denemeSayisi} deneme yapıldı; lütfen birkaç dakika sonra tekrar deneyin.`);
+        }
+        await new Promise((r) => setTimeout(r, 2000 * 2 ** (deneme - 1)));
+    }
+}
+
 // --- GEMINI API İLE ANALİZ FONKSİYONU ---
 async function handleAnalysis(sendResponse) {
     try {
@@ -189,7 +203,7 @@ async function handleAnalysis(sendResponse) {
 
         // 4. Gemini API'ye İstek At (DETERMİNİSTİK JSON ŞEMA ENTEGRASYONU)
         // Anahtar URL yerine başlıkta gönderilir; böylece loglarda ve geçmişte görünmez.
-        const apiResponse = await fetch("https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent", {
+        const apiResponse = await fetchTekrarli("https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
