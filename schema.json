@@ -1,13 +1,13 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
-  "description": "Kullanım koşulları risk analizi çıktı formatı. background/service_worker.js içindeki response_schema ile birebir aynıdır; kurallar background/dogrulama.js tarafından kodla da doğrulanır.",
+  "description": "Kullanım koşulları risk analizi çıktı formatı",
   "properties": {
     "risk_skoru": {
       "type": "integer",
-      "minimum": 0,
-      "maximum": 100,
-      "description": "Metnin genel tehlike seviyesi (0: Çok güvenli, 100: Aşırı riskli)"
+      "minimum": 1,
+      "maximum": 10,
+      "description": "Metnin genel tehlike seviyesi (1: Çok güvenli, 10: Aşırı riskli)"
     },
     "riskli_maddeler": {
       "type": "array",
@@ -15,13 +15,9 @@
       "items": {
         "type": "object",
         "properties": {
-          "kategori": {
-            "type": "string",
-            "description": "Risk kategorisi (örn: Veri Paylaşımı, Zorunlu Tahkim, Sistem Güvenliği İhlali)"
-          },
           "orijinal_metin": {
             "type": "string",
-            "description": "ZORUNLU KURAL: Kaynak metinden noktası virgülüne dokunulmadan alınan BİREBİR alıntı. Alıntısı sayfada bulunamayan risk geçersiz sayılır."
+            "description": "ZORUNLU KURAL: Kaynak metinden noktası virgülüne dokunulmadan alınan BİREBİR alıntı. Alıntısı olmayan hiçbir risk kabul edilemez."
           },
           "sade_aciklama": {
             "type": "string",
@@ -29,7 +25,6 @@
           }
         },
         "required": [
-          "kategori",
           "orijinal_metin",
           "sade_aciklama"
         ],
